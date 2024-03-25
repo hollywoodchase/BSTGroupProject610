@@ -1,4 +1,4 @@
-// <?php
+ <?php
 // $message = "";
 
 // if (isset($_POST['submitbtn'])) {
@@ -26,7 +26,7 @@
 //   }
 
 // }
-// ?>
+ ?>
 <!DOCTYPE html>
 <html>
 
