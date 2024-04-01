@@ -35,33 +35,6 @@ if($DBConnect == false)
 		$sortby = isset($_GET['sort']) ? $_GET['sort'] : '';
         $sortOrder = isset($_GET['order']) ? $_GET['order'] : 'ASC';
 
-        /**
-if ($sortby =='ID')
-{
-	$SQLstring .= "ORDER BY ID";
-}
-elseif($sortby == 'Title')
-{
-    $SQLstring .= " ORDER BY Title";
-}
-elseif ($sortby == 'Author')
-{
-    $SQLstring .= " ORDER BY Author";
-}
-elseif ($sortby == 'PageCount')
-{
-    $SQLstring .= " ORDER BY PageCount";
-}
-elseif($sortby == 'Genre')
-{
-    $SQLstring .= " ORDER BY Genre";
-}
-elseif($sortby == 'Audiobook')
-{
-    $SQLstring .= " ORDER BY Audiobook";
-}
-*/
-
 
 $QueryResult = mysqli_query($DBConnect, "SELECT COUNT(*) AS `track_id` FROM `music`");
 $Row = mysqli_fetch_array($QueryResult);
