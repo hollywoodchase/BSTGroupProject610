@@ -42,6 +42,7 @@ class TreeNode
 class BST
 {
     public $root;
+    private $visitedNodes = [];
 
     public function __construct()
     {
@@ -71,21 +72,30 @@ class BST
 
     public function search($title)
     {
+        $this->visitedNodes = []; // Clear previous visited nodes
         return $this->_searchRecursive($this->root, $title);
     }
 
     private function _searchRecursive($node, $title)
     {
         if ($node === null || strtolower($node->song->getTitle()) === strtolower($title)) {
+            array_push($this->visitedNodes, $node); // Add visited node to array
             return $node;
         }
 
         $compare = strcmp(strtolower($title), strtolower($node->song->getTitle()));
         if ($compare < 0) {
+            array_push($this->visitedNodes, $node); // Add visited node to array
             return $this->_searchRecursive($node->left, $title);
         } else {
+            array_push($this->visitedNodes, $node); // Add visited node to array
             return $this->_searchRecursive($node->right, $title);
         }
+    }
+
+    public function getVisitedNodes()
+    {
+        return $this->visitedNodes;
     }
 }
 
@@ -117,7 +127,12 @@ while (true) {
         break;
     }
 
+    $startTime = microtime(true); // Capture start time
+
     $result = $bst->search($searchTitle);
+
+    $endTime = microtime(true); // Capture end time
+    $searchDuration = $endTime - $startTime; // Calculate duration
 
     if ($result !== null) {
         $foundSong = $result->song;
@@ -125,7 +140,16 @@ while (true) {
     } else {
         echo "Song '$searchTitle' not found in the BST." . PHP_EOL;
     }
+
+    $visitedNodes = $bst->getVisitedNodes();
+    echo "Nodes visited during search: " . PHP_EOL;
+    foreach ($visitedNodes as $node) {
+        Kesey Seedecho "- " . $node->song->getTitle() . PHP_EOL;
+    }
+
+    echo "Search duration: " . number_format($searchDuration, 10) . " seconds" . PHP_EOL;
 }
 
 echo "Exiting the program...";
+readline("Press Enter");
 ?>
